@@ -17,29 +17,25 @@ function getMigrationFiles($conn) {
         return $allFiles;
     $data = mysqli_fetch_all($res);
     foreach ($data as $row) {
-        array_push($migrationFiles, $sqlFolder . $row["name"]);
+        array_push($migrationFiles, $sqlFolder . $row[0]);
     }
     // возвращаем все файлы, которых нет в таблице migrations
     return array_diff($allFiles, $migrationFiles);
 }
 
 function migrate($conn, $file) {
-    require_once 'config.php';
+    require 'config.php';
     // Формируем команду выполнения mysql-запроса из внешнего файла
-    $command = sprintf('mysql -u%s -p%s -h %s -D %s < %s', $dbuser, $dbpassword, $dbhost, $dbname, $file);
-    // Выполняем shell-скрипт
-    if (shell_exec($command)) {
-        echo $baseName . "Загружено <br>";
-    } else {
-        echo $baseName . "ошибка загрузки <br>";
-    }
+    $command = "mysql -u $dbuser -p$dbpassword -D $dbname < $file";
+    // Выполняем скрипт
+    exec($command);
 
     // вытаскиваем имя файла, отбрасив путь
     $baseName = basename($file);
     // Формируем запрос для добавления миграции в таблицу migrations
-    $query = "INSERT INTO `migration` (`name`) VALUES('$baseName')";
+    $query = "INSERT INTO `migrations` (`name`) VALUES ('$baseName')";
     // Выполняем запрос
-    mysqli_query($conn,$query);
+    $conn->query($query);
 }
 
 // Получаем список файлов для миграций за исключением тех, которые уже есть в таблице versions
@@ -50,7 +46,5 @@ if (empty($files))
 else {
     foreach ($files as $file) {
         migrate($mysqli, $file);
-
-        echo basename($file) . "<br>";
     }
 }

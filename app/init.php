@@ -6,7 +6,7 @@ require_once 'core/view.php';
 require_once 'core/controller.php';
 require_once 'core/route.php';
 
-// Подключение к базе данных
+// Подключение к базе данных и миграция таблиц(если нужно)
 require_once 'database/db_connect.php';
 require_once 'database/migration.php';
 

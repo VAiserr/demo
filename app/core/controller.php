@@ -1,6 +1,7 @@
-<?php 
+<?php
 
-class Controller {
+class Controller
+{
 
     public $model;
     public $view;
@@ -8,6 +9,11 @@ class Controller {
     function __construct()
     {
         $this->view = new View();
+    }
+
+    function redirect($to)
+    {
+        // code...
     }
 
     // Метод action, вызываемое по умолчанию

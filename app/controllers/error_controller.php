@@ -1,5 +1,4 @@
 <?php
-
 class Error_controller extends Controller {
 
     function action_index()

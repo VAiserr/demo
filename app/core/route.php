@@ -9,23 +9,6 @@ class Route
 {
     static function start($controller_name = 'Main', $action_name = 'action_index', $data = null)
     {
-        // Контроллер и действие по умолчанию
-        // $controller_name = 'Main';
-        // $action_name = 'index';
-
-        // Разделение адресса страницы на состовляющие
-        // $routes = explode('/', $_SERVER["REQUEST_URI"]);
-
-        // Получаем имя контроллера
-        // if (!empty($routes[1])) {
-        //     $controller_name = $routes[1];
-        // }
-
-        // Получаем имя action
-        // if (!empty($routes[2])) {
-        //     $action_name = $routes[2];
-        // }
-
         // Добавляем префиксы
         $model_name = $controller_name . '_model';
         $controller_name .= '_controller';
@@ -35,7 +18,7 @@ class Route
         echo "Action: $action_name <br>";
 
         // Подключаем файл с кслассом модели (файла может и не быть)
-        $model_file = strtolower($model_name);
+        $model_file = strtolower($model_name) . '.php';
         $model_path = "app/models/" . $model_file;
         if (file_exists($model_path)) {
             include $model_path;

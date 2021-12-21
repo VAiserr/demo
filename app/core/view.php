@@ -1,5 +1,4 @@
 <?php
-
 class View
 {
 
@@ -11,13 +10,12 @@ class View
 	$data - массив, содержащий элементы контента страницы. Обычно заполняется в модели.
 	*/
     function generate($content_view, $template_view = "template_view.php", $data = null) {
-        /*
+
 		if(is_array($data)) {
 			
 			// преобразуем элементы массива в переменные
 			extract($data);
 		}
-		*/
 
         /*
 		динамически подключаем общий шаблон (вид),
