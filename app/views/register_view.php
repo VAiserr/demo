@@ -2,20 +2,20 @@
 <div class="errors">
     <ul>
         <?php
-            if (!empty($errs)) {
-                foreach ($errs as $err) {
-                    print '<li>' . $err . '</li>';
-                }
+        if (!empty($errs)) {
+            foreach ($errs as $err) {
+                print '<li>' . $err . '</li>';
             }
+        }
         ?>
     </ul>
 </div>
-<?php 
-    if (isset($data)) {
-        $name = $data["FIO"];
-        $login = $data["login"];
-        $email = $data["email"];
-    }
+<?php
+if (isset($data)) {
+    $name = $data["FIO"];
+    $login = $data["login"];
+    $email = $data["email"];
+}
 ?>
 <form action="/register/submit" method="post">
     <label for="FIO">ФИО</label>

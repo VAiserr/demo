@@ -11,9 +11,10 @@ class Controller
         $this->view = new View();
     }
 
-    function redirect($to)
+    static function redirect($to)
     {
-        // code...
+        $host = 'http://' . $_SERVER["HTTP_HOST"];
+        header("Location: $host" . $to);
     }
 
     // Метод action, вызываемое по умолчанию

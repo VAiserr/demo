@@ -15,4 +15,4 @@ collate utf8_general_ci;
 
 -- Учетная запись администратора --
 insert into `users` (`FIO`, `login`, `email`, `password`, `status`) values
-    ('В.В.Путин', 'admin', 'yourDuddy@mail.ru', '12345678', 1)
+    ('Ivan', 'admin', 'yourDuddy@mail.ru', '12345678', 1)

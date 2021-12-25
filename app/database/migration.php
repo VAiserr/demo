@@ -28,7 +28,7 @@ function migrate($conn, $file) {
     // Формируем команду выполнения mysql-запроса из внешнего файла
     $command = "mysql -u $dbuser -p$dbpassword -D $dbname < $file";
     // Выполняем скрипт
-    exec($command);
+    shell_exec($command);
 
     // вытаскиваем имя файла, отбрасив путь
     $baseName = basename($file);

@@ -15,16 +15,24 @@ class User_model extends Model
     function get_user($login, $password)
     {
         global $mysqli;
-        $sql = "SELECT * FROM `users`
-                WHERE `login` = '$login'";
-        $user = mysqli_fetch_assoc(mysqli_query($mysqli, $sql));
+        $email = filter_var($login, FILTER_VALIDATE_EMAIL) ? $login : '';
+        if (!empty($email)) {
+            $sql = "SELECT * FROM `users`
+                    WHERE `email` = '$email'";
+        } else {
+            $sql = "SELECT * FROM `users`
+                    WHERE `login` = '$login'";
+        }
 
-        if ($user["password"] == $password)
-            return $user;
+        $user = mysqli_fetch_assoc($mysqli->query($sql));
+        if ($user)
+            if ($user["password"] == $password)
+                return $user;
         return null;
     }
 
-    function get_login($login) {
+    function get_login($login)
+    {
         global $mysqli;
         $sql = "SELECT `login` FROM `users`
                 WHERE `login` = '$login'";
@@ -35,7 +43,8 @@ class User_model extends Model
         return;
     }
 
-    function get_email($email) {
+    function get_email($email)
+    {
         global $mysqli;
         $sql = "SELECT `email` FROM `users`
                 WHERE `email` = '$email'";
