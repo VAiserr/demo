@@ -1,9 +1,9 @@
 <?php
+session_start();
+$user = @$_SESSION["user"];
 $routes = explode('/', $_SERVER["REQUEST_URI"]);
-$location = $routes[1];
+$location = @explode('?', $routes[1])[0];
 $action = @explode('?', $routes[2])[0];
-print_r($action);
-echo '<br>';
 
 switch ($location) {
     case '':
@@ -26,21 +26,63 @@ switch ($location) {
         break;
 
     case 'profile':
-        if (!empty($action))
-            switch ($action) {
-                case 'add':
-                    Route::start('Aplication', 'add');
-                    break;
-                case 'change-aplication':
-                    Route::start('Aplication', 'change');
-                    break;
+        if (isset($user)) {
+            if (!empty($action))
+                switch ($action) {
+                    case 'add-aplication':
+                        Route::start('Aplication', 'add');
+                        break;
+                    case 'change-aplication':
+                        Route::start('Aplication', 'change');
+                        break;
 
-                default:
-                    Route::start('error');
-            }
-        else Route::start('Aplication');
+                    default:
+                        Route::start('error');
+                }
+            else Route::start('Aplication');
+        } else Route::start('User', 'login_form');
         break;
 
+    case 'category':
+        if (isset($user)) {
+            if($user["status"]) {
+                if (!empty($action)) {
+                    switch ($action) {
+                        case 'add':
+                            Route::start('Category','add');
+                            break;
+                        case 'delete':
+                            Route::start('Category','delete');
+                            break;
+
+                        default:
+                            Route::start('error');
+                    }
+                } else Route::start("Category");
+            } else Route::accessDenied();
+        } else Route::start('User', 'login_form');
+        break;
+
+    case 'aplications':
+        if (isset($user)) {
+            if ($user["status"]) {
+                if (!empty($action)) {
+                    switch ($action) {
+                        case 'change':
+                            Route::start('Admin','change');
+                            break;
+
+                        default:
+                            Route::start('error');
+                    }
+                } else Route::start("Admin");
+            } else Route::accessDenied();
+        } else Route::start('User', 'login_form');
+        break;
+
+    case 'accessDenied':
+        Route::start('error','accessDenied');
+        break;
     default:
         Route::start('error');
 }

@@ -7,7 +7,8 @@ create table if not exists `aplications` (
     `category_id` int(10) not null,
     `image_before` varchar(255) not null,
     `image_after` varchar(255),
-    `status` varchar(255) not null default 'new',
+    `cause` varchar(255),
+    `status` int(5) not null default 1,
     `created_at` timestamp default current_timestamp,
     `updated_at` timestamp on update current_timestamp,
     primary key (id)

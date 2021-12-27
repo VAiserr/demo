@@ -13,9 +13,9 @@ class Route
         $model_name = $controller_name . '_model';
         $controller_name .= '_controller';
 
-        echo "Model: $model_name <br>";
-        echo "Controller: $controller_name <br>";
-        echo "Action: $action_name <br>";
+        // echo "Model: $model_name <br>";
+        // echo "Controller: $controller_name <br>";
+        // echo "Action: $action_name <br>";
 
         // Подключаем файл с кслассом модели (файла может и не быть)
         $model_file = strtolower($model_name) . '.php';
@@ -46,7 +46,6 @@ class Route
             $controller->$action($data);
         } else {
             // здесь также разумнее было бы кинуть исключение
-            echo "Контроллер $controller_name не существует";
             Route::ErrorPage404();
         }
     }
@@ -57,5 +56,10 @@ class Route
         header('HTTP/1.1 404 Not Found');
         header('Status: 404 Not Found');
         header('Location:' . $host . 'error');
+    }
+
+    static function accessDenied() {
+        $host = 'http://' . $_SERVER["HTTP_HOST"] . '/';
+        header('Location:' . $host . 'accessDenied');
     }
 }

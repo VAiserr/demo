@@ -10,12 +10,12 @@ class User_controller extends Controller
 
     function login_form()
     {
-        $this->view->generate('login_view.php', 'template_view.php');
+        $this->view->generate('login_view.php', 'login_view.php', ["title" => "Авторизация"]);
     }
 
-    function register_form($data)
+    function register_form()
     {
-        $this->view->generate('register_view.php', 'template_view.php', $data);
+        $this->view->generate('register_view.php', 'register_view.php', ["title" => "Регистрация"]);
     }
 
     function login()
@@ -36,8 +36,8 @@ class User_controller extends Controller
         if (isset($err)) {
             $this->view->generate(
                 'login_view.php',
-                'template_view.php',
-                ["errs" => $err, "data" => $_POST]
+                'login_view.php',
+                ["errs" => $err, "user" => $_POST, "title" => "Авторизация"]
             );
         } else {
             $user = $this->model->get_user(empty($login) ? $email : $login, $_POST['password']);
@@ -74,8 +74,8 @@ class User_controller extends Controller
         if (isset($err)) {
             $this->view->generate(
                 'register_view.php',
-                'template_view.php',
-                ["errs" => $err, "data" => $_POST]
+                'register_view.php',
+                ["errs" => $err, "user" => $_POST, "title" => "Регистрация"]
             );
         } else {
             $this->model->post_data($_POST);

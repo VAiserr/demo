@@ -41,9 +41,7 @@ function migrate($conn, $file) {
 // Получаем список файлов для миграций за исключением тех, которые уже есть в таблице versions
 $files = getMigrationFiles($mysqli);
 // Проверяем, есть ли новые миграции
-if (empty($files))
-    echo 'Миграция не требуется <br>';
-else {
+if (!empty($files)) {
     foreach ($files as $file) {
         migrate($mysqli, $file);
     }
