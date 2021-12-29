@@ -13,19 +13,9 @@ class Admin_controller extends Controller
 
     function action_index()
     {
-        switch (@$_GET["status"]) {
-            case "new":
-                $aps = $this->model->get_new();
-                break;
-            case "decided":
-                $aps = $this->model->get_decided();
-                break;
-            case "declined":
-                $aps = $this->model->get_declined();
-                break;
-            default:
-                $aps = $this->model->get_data();
-        }
+        $_SESSION["status_filter"] = @$_GET["status"];
+        $action = Admin_controller::get_aps($_SESSION["status_filter"]);
+        $aps = $this->model->$action();
         $this->view->generate(
             'aplications_view.php',
             'template_view.php',
@@ -87,19 +77,8 @@ class Admin_controller extends Controller
         }
 
         if (isset($err)) {
-            switch (@$_GET["status"]) {
-                case "new":
-                    $aps = $this->model->get_new();
-                    break;
-                case "decided":
-                    $aps = $this->model->get_decided();
-                    break;
-                case "declined":
-                    $aps = $this->model->get_declined();
-                    break;
-                default:
-                    $aps = $this->model->get_data();
-            }
+            $action = Admin_controller::get_aps($_SESSION["status_filter"]);
+            $aps = $this->model->$action();
             $this->view->generate(
                 'aplications_view.php', 
                 'template_view.php',
@@ -114,7 +93,32 @@ class Admin_controller extends Controller
             $result = $_POST;
             $result["image"] = @$image_name;
             $this->model->change_status($result);
-            Controller::redirect('/aplications?status=new');
+            Controller::redirect('/aplications?status=' . $_SESSION["status_filter"]);
         }
+    }
+
+    function delete() {
+        if (!empty($_GET["id"])) {
+            $this->model->delete_data($_GET["id"]);
+            Controller::redirect('/aplications?status=' . $_SESSION["status_filter"]);
+        }
+    }
+
+    static function get_aps($filter) {
+        switch ($filter) {
+            case "new":
+                $result = 'get_new';
+                break;
+            case "decided":
+                $result = 'get_decided';
+                break;
+            case "declined":
+                $result = 'get_declined';
+                break;
+            default:
+                $result = 'get_data';
+                $_SESSION["status_filter"] = "";
+        }
+        return $result;
     }
 }

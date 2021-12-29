@@ -8,8 +8,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+    <!-- Стили -->
     <link rel="stylesheet" href="<?php echo 'http://' . $_SERVER["HTTP_HOST"] . '/css/style.css' ?>">
-    <script src="<?php echo 'http://' . $_SERVER["HTTP_HOST"] . '/js/aplications.js' ?>"></script>
     <title>Document</title>
 </head>
 <?php
@@ -52,5 +52,7 @@ if (isset($_SESSION["user"])) {
         <?php include 'app/views/' . $content_view; ?>
     </main>
 </body>
-
+<!-- Скрипты -->
+<script src="<?php echo 'http://' . $_SERVER["HTTP_HOST"] . '/js/aplications.js' ?>"></script>
+<script src="<?php echo 'http://' . $_SERVER["HTTP_HOST"] . '/js/script.js' ?>"></script>
 </html>

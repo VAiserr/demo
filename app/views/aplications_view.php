@@ -57,7 +57,7 @@
                         </div>'. $input
                         .'<div class="panel-row flex sp align-end">
                             <span class="date">'. $item["created_at"] .'</span>
-                            <span class="link">Удалить</span>
+                            <a href="/aplications/delete?id='. $item["id"] .'" onclick="return confirm(`Вы уверены?`);" class="link color-white">Удалить</a>
                         </div>
                         </li>';
                 }

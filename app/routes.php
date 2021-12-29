@@ -71,6 +71,9 @@ switch ($location) {
                         case 'change':
                             Route::start('Admin','change');
                             break;
+                        case 'delete':
+                            Route::start('Admin','delete');
+                            break;
 
                         default:
                             Route::start('error');

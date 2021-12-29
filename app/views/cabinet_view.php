@@ -2,10 +2,10 @@
     <div class="flex sp">
         <h2>Мои заявки</h2>
         <nav class="filter flex f-center align-center">
-            <span class="link selected">Все</span><span class="vl color-black">|</span>
-            <span class="link">Новые</span><span class="vl color-black">|</span>
-            <span class="link">Решенные</span><span class="vl color-black">|</span>
-            <span class="link">Откланенные</span>
+            <span data-filter="Все" class="link selected">Все</span><span class="vl color-black">|</span>
+            <span data-filter="Новая" class="link">Новые</span><span class="vl color-black">|</span>
+            <span data-filter="Решенная" class="link">Решенные</span><span class="vl color-black">|</span>
+            <span data-filter="Откланена" class="link">Откланенные</span>
         </nav>
     </div>
     <hr>
@@ -19,20 +19,23 @@
                         if ($item["category_id"] == $cat["id"])
                             $category = $cat["category"];
                     }
-                    printf('
+                    print '
                         <li class="application panel-block color-white">
                         <div class="panel-row flex f-center">
-                            <h3>%s</h3>
+                            <h3>'.$item["title"].'</h3>
                         </div>
                         <div class="panel-row flex">
-                            <img src="%s" alt="" class="application-img">
-                        </div>
+                            ' .($item["status"] == "Решенная" ? 
+                            '<img src=".'.$item["image_after"].'" alt="" class="application-img" id="img-afrer" onmouseout="switchImg(event)" hidden>
+                            <img src=".'.$item["image_before"].'" alt="" class="application-img" id="img-before" onmouseover="switchImg(event)">
+                            ' : '<img src=".'.$item["image_before"].'" alt="" class="application-img" id="img-before">') .
+                        '</div>
                         <div class="panel-row flex sp">
                             <div class="word-wrap">
-                                <h4>Категория: </h4><span> %s</span> 
+                                <h4>Категория: </h4><span> '.$category.'</span> 
                             </div>
                             <div class="flex">
-                                <h4>Статус: </h4> <span class="%s">%s</span>
+                                <h4>Статус: </h4> <span class="'.$item["status_class"].'" id="status">'.$item["status"].'</span>
                             </div>
                         </div>
                         <div class="panel-row">
@@ -40,57 +43,20 @@
                             <h3>Описание</h3>
                         </div>
                         <div class="word-wrap">
-                            <p class="app-description">%s</p>
+                            <p class="app-description">'.$item["description"].'</p>
                         </div>
                         </div>
                         <div class="panel-row flex sp align-end">
-                            <span class="date">%s</span>
-                            <span class="link">Удалить</span>
+                            <span class="date">'.$item["created_at"].'</span>
+                            <a onclick="return confirm(`Вы уверены?`);" class="link">'.($item["status"] == "Решенная" ? '' : "Удалить").'</a>
                         </div>
                         </li>
-                        ',
-                        $item["title"],
-                        "." . $item["image_before"],
-                        $category,
-                        $item["status_class"],
-                        " " . $item["status"],
-                        $item["description"],
-                        $item["created_at"],
-                        $item["status"] == "Решенная" ? '' : "Удалить"
-                    );
+                        ';
                 }
             } else {
                 echo "<li class='application'><h3>Заявок нет<h3></li>";
             }
-        ?>
-        <!-- <li class="application panel-block color-white">
-            <div class="panel-row flex f-center">
-                <h3>Название заявки</h3>
-            </div>
-            <div class="panel-row flex">
-                <img src="" alt="" class="application-img">
-            </div>
-            <div class="panel-row flex sp">
-                <div class="word-wrap">
-                    <h4>Категория: </h4> <span>text</span> 
-                </div>
-                <div class="flex">
-                    <h4>Статус: </h4> <span class="selected">новая</span>
-                </div>
-            </div>
-            <div class="panel-row flex f-center">
-                <h3>Описание</h3>
-            </div>
-            <div class="panel-row">
-                <p class="app-description">text</p>
-            </div>
-            <div class="panel-row flex sp align-end">
-                <span class="date">25-10-2021 19:30</span>
-                <span class="link">Удалить</span>
-            </div>
-        </li> -->
-
-        
+        ?>        
     </ul>
 </div>
 <div class="inner-block">
@@ -153,7 +119,4 @@
         </div>
     </form>
 </div>
-
-
-
-<hr>
+<script src="<?php echo 'http://' . $_SERVER["HTTP_HOST"] . '/js/my-cabinet.js' ?>"></script>

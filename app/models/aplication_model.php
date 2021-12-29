@@ -91,6 +91,11 @@ class Aplication_model extends Model
         $mysqli->query($sql);
     }
 
+    function delete_data($data) {
+        global $mysqli;
+        $mysqli->query("DELETE FROM `aplications` WHERE `id` = $data");
+    }
+
     function change_status($data) {
         global $mysqli;
         $id = @$data["apl_id"];
