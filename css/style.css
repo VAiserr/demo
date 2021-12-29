@@ -231,6 +231,11 @@ label {
     align-items: flex-end;
 }
 
+#aplications-block {
+    overflow: hidden;
+    transition: height .1s linear;
+}
+
 .applications-list li {
     list-style-type: none;
 }
@@ -243,3 +248,7 @@ label {
 .application h3 {
     text-align: center;
 }
+
+/* #hide {
+    box-shadow: 0px -25px 5px 0px rgba(241,242,243,1);
+} */

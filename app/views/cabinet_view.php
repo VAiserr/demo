@@ -11,6 +11,7 @@
     <hr>
 </div>
 <div class="inner-block">
+    <div id="aplications-block">
     <ul class="applications-list flex f-center wrap">
         <?php 
             if (!empty($aplications)) {
@@ -19,6 +20,8 @@
                         if ($item["category_id"] == $cat["id"])
                             $category = $cat["category"];
                     }
+                    $image_before = "http://" . $_SERVER["HTTP_HOST"] . $item["image_before"];
+                    $image_after = "http://" . $_SERVER["HTTP_HOST"] . $item["image_after"];
                     print '
                         <li class="application panel-block color-white">
                         <div class="panel-row flex f-center">
@@ -26,9 +29,9 @@
                         </div>
                         <div class="panel-row flex">
                             ' .($item["status"] == "Решенная" ? 
-                            '<img src=".'.$item["image_after"].'" alt="" class="application-img" id="img-afrer" onmouseout="switchImg(event)" hidden>
-                            <img src=".'.$item["image_before"].'" alt="" class="application-img" id="img-before" onmouseover="switchImg(event)">
-                            ' : '<img src=".'.$item["image_before"].'" alt="" class="application-img" id="img-before">') .
+                            '<img src="'. $image_after .'" alt="" class="application-img" id="img-afrer" onmouseout="switchImg(event)" hidden>
+                            <img src="'. $image_before .'" alt="" class="application-img" id="img-before" onmouseover="switchImg(event)">
+                            ' : '<img src="'. $image_before .'" alt="" class="application-img" id="img-before">') .
                         '</div>
                         <div class="panel-row flex sp">
                             <div class="word-wrap">
@@ -54,13 +57,14 @@
                         ';
                 }
             } else {
-                echo "<li class='application'><h3>Заявок нет<h3></li>";
+                echo "<li class='application'><h3>Заявки не найдены<h3></li>";
             }
         ?>        
     </ul>
+    </div>
 </div>
 <div class="inner-block">
-    <div class="flex f-center"><span class="link" id="show">Показать все</span></div>
+    <div class="flex f-center" id="hide"><span class="link" id="show">Показать все</span></div>
     <hr>
 </div>
 <div class="inner-block flex f-center">

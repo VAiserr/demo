@@ -9,6 +9,8 @@
         <?php 
             if (!empty($aplications)) {
                 for ($i = 0; $i < 4 && $item = @$aplications[$i]; $i++) {
+                    $image_before = "http://" . $_SERVER["HTTP_HOST"] . $item["image_before"];
+                    $image_after = "http://" . $_SERVER["HTTP_HOST"] . $item["image_after"];
                     foreach($categories as $cat) {
                         if ($item["category_id"] == $cat["id"])
                             $category = $cat["category"];
@@ -44,8 +46,8 @@
                         </li>
                         ',
                         $item["title"],
-                        "." . $item["image_before"],
-                        "." . $item["image_after"],
+                        $image_before,
+                        $image_after,
                         $category,
                         $item["status_class"],
                         " " . $item["status"],

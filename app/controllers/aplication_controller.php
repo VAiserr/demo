@@ -83,7 +83,15 @@ class Aplication_controller extends Controller
             ]);
             Controller::redirect("/profile");
         } else {
-            $this->view->generate('cabinet_view.php', 'template_view.php', ["categories" => $this->model->categories, "errs" => $err]);
+            $id = $_SESSION["user"]["id"];
+            $this->view->generate(
+                'cabinet_view.php', 
+                'template_view.php', 
+                [
+                    "categories" => $this->model->categories, 
+                    "aplications" => $this->model->get_user_data($id),
+                    "errs" => $err
+                ]);
         }
     }
 
