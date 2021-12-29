@@ -95,4 +95,16 @@ class Aplication_controller extends Controller
             $this->view->generate('cabinet_view.php', 'template_view.php', ["data" => $this->model->get_user_data($id)]);
         } else Controller::redirect("/login");
     }
+
+    function delete() {
+        if (!empty($_GET["id"])) {
+            $user_id = $_SESSION["user"]["id"];
+            $id = $_GET["id"];
+            $aplication = $this->model->get_aplication($id);
+            if ($aplication["user_id"] == $user_id) {
+                $this->model->delete_data($id);
+                Controller::redirect('/profile');
+            }
+        }
+    }
 }

@@ -21,6 +21,11 @@ class Aplication_model extends Model
         return $result ?? null;
     }
 
+    function get_aplication($id) {
+        global $mysqli;
+        return mysqli_fetch_assoc($mysqli->query("SELECT * FROM `aplications` WHERE `id` = $id"));
+    }
+
     function get_user_data($id)
     {
         global $mysqli;

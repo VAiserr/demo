@@ -35,6 +35,9 @@ switch ($location) {
                     case 'change-aplication':
                         Route::start('Aplication', 'change');
                         break;
+                    case 'delete-aplication':
+                        Route::start('Aplication','delete');
+                        break;
 
                     default:
                         Route::start('error');

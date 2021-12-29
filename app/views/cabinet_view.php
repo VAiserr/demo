@@ -48,7 +48,7 @@
                         </div>
                         <div class="panel-row flex sp align-end">
                             <span class="date">'.$item["created_at"].'</span>
-                            <a onclick="return confirm(`Вы уверены?`);" class="link">'.($item["status"] == "Решенная" ? '' : "Удалить").'</a>
+                            <a href="/profile/delete-aplication?id='. $item["id"] .'" onclick="return confirm(`Вы уверены?`);" class="link color-white">'.($item["status"] == "Решенная" ? '' : "Удалить").'</a>
                         </div>
                         </li>
                         ';
