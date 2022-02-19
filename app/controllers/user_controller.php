@@ -49,8 +49,12 @@ class User_controller extends Controller
 
     function register()
     {
+        // var_dump($_POST);
         if (empty($_POST["FIO"]))
             $err[] = 'Поле ФИО не может быть пустым!';
+
+        // if (!preg_match('/^[А-я\-]/',$_POST["FIO"]))
+        //     $err[] = 'ФИО может содержать только кириллицу, дефис и пробелы';
 
         if (empty($_POST["login"]))
             $err[] = 'Поле Логин не может быть пустым!';
@@ -60,6 +64,12 @@ class User_controller extends Controller
 
         if (empty($_POST["password"]))
             $err[] = 'Поле Пароль не может быть пустым!';
+
+        if (empty($_POST["confirm"]))
+            $err[] = 'Поле Подтвердите пароль не может быть пустым!';
+
+        if ($_POST["password"] != $_POST["confirm"])
+            $err[] = 'Пароль не подтвержден';
 
         $login = $this->model->get_login($_POST["login"]) ?? '';
         if ($login) {

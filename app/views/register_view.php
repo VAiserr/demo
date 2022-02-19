@@ -44,8 +44,8 @@
                 </div>
 
                 <div class="input-panel">
-                    <label for="FIO">Имя</label><br>
-                    <input type="text" value="<?php echo $name ?? '' ?>" name="FIO" id="FIO" class="auth-input">
+                    <label for="FIO">ФИО</label><br>
+                    <input type="text" value="<?php echo $name ?? '' ?>" name="FIO" id="FIO" class="auth-input" pattern="^[А-Яа-яЁё\s\-]+$">
                 </div>
                 <div class="input-panel">
                     <label for="login">Логин</label><br>
@@ -58,6 +58,15 @@
                 <div class="input-panel">
                     <label for="password">Пароль</label><br>
                     <input type="password" name="password" id="password" class="auth-input">
+                </div>
+                <div class="input-panel">
+                    <label for="password">Подтвердите пароль</label><br>
+                    <input type="password" name="confirm" id="confirm" class="auth-input">
+                </div>
+
+                <div class="input-panel flex align-center">
+                    <input type="checkbox" name="agree" id="agree" class="agree" required> 
+                    <label for="agree">Согласие на обработку персональных данных</label>
                 </div>
 
                 <div class="input-panel">

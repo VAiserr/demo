@@ -200,6 +200,10 @@ label {
     transition: width .1s linear;
 }
 
+.agree {
+    margin-right: 10px;
+}
+
 /* ы */
 
 .application-img {
